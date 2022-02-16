@@ -10,14 +10,32 @@ let saveInput = document.getElementById("save-input");
 let saveBtn = document.getElementById("save-btn");
 let sevingAmountTxt = document.getElementById("seving-amount");
 let remainingBalanceTxt = document.getElementById("remaining-balance");
-// Expense calculation
 
+// Expense calculation
 calculateBtn.addEventListener("click", function () {
   console.log("clicked");
-  let incomeValue = incomeInput.value;
-  let foodCost = foodInput.value;
-  let rentCost = rentInput.value;
-  let clothesCost = clothesInput.value;
+  let incomeValue = parseFloat(incomeInput.value);
+  let foodCost = parseFloat(foodInput.value);
+  let rentCost = parseFloat(rentInput.value);
+  let clothesCost = parseFloat(clothesInput.value);
   let totalExpenses = foodCost + rentCost + clothesCost;
+  let currentBalance = incomeValue - totalExpenses;
+  balanceTxt.innerText = currentBalance;
   totalExpensesTxt.innerText = totalExpenses;
+
+  if (incomeValue || foodCost || rentCost || clothesCost < 0) {
+    alert("Please inter a positive number");
+    balanceTxt.innerText = 0;
+    totalExpensesTxt.innerText = 0;
+  }
+});
+
+saveBtn.addEventListener("click", function () {
+  let currentIncome = parseFloat(incomeInput.value);
+  let newBalance = parseFloat(balanceTxt.innerText);
+  let partialValue = parseInt(saveInput.value);
+  let sevings = (100 * partialValue) / currentIncome;
+  sevingAmountTxt.innerText = sevings;
+  let remainingBalance = newBalance - sevings;
+  remainingBalanceTxt.innerText = remainingBalance;
 });
