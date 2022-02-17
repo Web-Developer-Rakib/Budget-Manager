@@ -42,18 +42,19 @@ calculateBtn.addEventListener("click", function () {
   balanceTxt.innerText = currentBalance;
   totalExpensesTxt.innerText = totalExpenses;
 
+  // Income and expense negative number validation
   if (incomeValue() <= 0) {
-    alerts("Please enter a valid income");
+    alerts("Please enter a positive income amount.");
     balanceTxt.innerText = 0;
     totalExpensesTxt.innerText = 0;
   } else if (foodCost <= 0) {
-    alerts("Please enter positive food cost");
+    alerts("Please enter positive food cost.");
     balanceTxt.innerText = 0;
     totalExpensesTxt.innerText = 0;
   } else if (rentCost <= 0) {
-    alerts("Please enter a positive rent cost");
+    alerts("Please enter a positive rent cost.");
   } else if (clothesCost <= 0) {
-    alerts("Please enter a positive clothes cost");
+    alerts("Please enter a positive clothes cost.");
     balanceTxt.innerText = 0;
     totalExpensesTxt.innerText = 0;
   } else if (totalExpenses > incomeValue()) {
@@ -65,9 +66,9 @@ calculateBtn.addEventListener("click", function () {
     totalExpensesTxt.innerText = totalExpenses;
     alrt.classList.add("d-none");
   }
-
+  // Income and expense NaN validation
   if (totalExpensesTxt.innerText == "NaN" || balanceTxt.innerText == "NaN") {
-    alerts("Please enter a valid number to all fields.");
+    alerts("Please enter valid amounts to all fields.");
     balanceTxt.innerText = 0.0;
     totalExpensesTxt.innerText = 0.0;
   }
@@ -80,32 +81,35 @@ saveBtn.addEventListener("click", function () {
   let sevings = (incomeValue() / 100) * partialValue;
   let remainingBalance = newBalance - sevings;
 
+  // Partial number validation
   if (partialValue > 100) {
     sevingAmountTxt.innerText = 0;
     remainingBalanceTxt.innerText = 0;
-    alerts("Partial value should not be more than 100");
+    alerts("Partial number should not be more than 100.");
   } else if (partialValue <= 0) {
     sevingAmountTxt.innerText = 0;
     remainingBalanceTxt.innerText = 0;
-    alerts("Enter a positive pertial number");
+    alerts("Enter a positive pertial number.");
   } else if (sevings > newBalance) {
     sevingAmountTxt.innerText = 0;
     remainingBalanceTxt.innerText = 0;
-    alerts("You can't save more than your current balance!");
+    alerts("You don't have enough money for seving!");
   } else {
     sevingAmountTxt.innerText = parseFloat(sevings);
     remainingBalanceTxt.innerText = parseFloat(remainingBalance);
     alrt.classList.add("d-none");
   }
-
+  // Sevings NaN validation
   if (
     sevingAmountTxt.innerText == "NaN" ||
     remainingBalanceTxt.innerText == "NaN"
   ) {
-    alerts("Please enter Your income and seving percentage.");
+    alerts("Please enter your income and seving percentage.");
     sevingAmountTxt.innerText = 0.0;
     remainingBalanceTxt.innerText = 0.0;
   } else if (totalExpensesTxt.innerText == 0) {
-    alerts("Please calculate your expense first.");
+    alerts("Please calculate your expense first!");
+    sevingAmountTxt.innerText = 0.0;
+    remainingBalanceTxt.innerText = 0.0;
   }
 });
