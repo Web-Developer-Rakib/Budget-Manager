@@ -14,12 +14,13 @@ let alrt = document.getElementById("alert");
 let alertTxt = document.getElementById("alert-txt");
 let closeAlert = document.getElementById("close-alert");
 
+// incomeInput value
 function incomeValue() {
   let incomeValue = parseFloat(incomeInput.value);
   return incomeValue;
 }
 
-// Alert Function
+// Alert function
 function alerts(alertMsg) {
   alrt.classList.remove("d-none");
   alrt.classList.add("d-flex");
@@ -52,7 +53,7 @@ calculateBtn.addEventListener("click", function () {
   } else if (rentCost <= 0) {
     alerts("Please enter a positive rent cost");
   } else if (clothesCost <= 0) {
-    alerts("Please enter a clothes cost");
+    alerts("Please enter a positive clothes cost");
     balanceTxt.innerText = 0;
     totalExpensesTxt.innerText = 0;
   } else if (totalExpenses > incomeValue()) {
@@ -72,10 +73,11 @@ calculateBtn.addEventListener("click", function () {
   }
 });
 
+// Sevings calculation
 saveBtn.addEventListener("click", function () {
   let newBalance = parseFloat(balanceTxt.innerText);
   let partialValue = parseInt(saveInput.value);
-  let sevings = (100 * partialValue) / incomeValue();
+  let sevings = (incomeValue() / 100) * partialValue;
   let remainingBalance = newBalance - sevings;
 
   if (partialValue > 100) {
@@ -85,14 +87,14 @@ saveBtn.addEventListener("click", function () {
   } else if (partialValue <= 0) {
     sevingAmountTxt.innerText = 0;
     remainingBalanceTxt.innerText = 0;
-    alerts("Enter a positive pertial value");
+    alerts("Enter a positive pertial number");
   } else if (sevings > newBalance) {
     sevingAmountTxt.innerText = 0;
     remainingBalanceTxt.innerText = 0;
-    alerts("You can't save more than your Current balance!");
+    alerts("You can't save more than your current balance!");
   } else {
-    sevingAmountTxt.innerText = sevings;
-    remainingBalanceTxt.innerText = remainingBalance;
+    sevingAmountTxt.innerText = parseFloat(sevings);
+    remainingBalanceTxt.innerText = parseFloat(remainingBalance);
     alrt.classList.add("d-none");
   }
 
